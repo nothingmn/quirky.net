@@ -108,8 +108,6 @@ namespace quirky.net
             return response;
         }
 
-
-
         #endregion
 
 
