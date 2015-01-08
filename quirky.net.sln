@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quirky.net", "quirky.net\quirky.net.csproj", "{E6597EA5-E45F-472C-BAB8-72BD982B659A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quirky.net.unit.test", "quirky.net.unit.test\quirky.net.unit.test.csproj", "{7F13AC95-2BDC-4CA5-BBD2-3055D87003DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6597EA5-E45F-472C-BAB8-72BD982B659A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6597EA5-E45F-472C-BAB8-72BD982B659A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6597EA5-E45F-472C-BAB8-72BD982B659A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6597EA5-E45F-472C-BAB8-72BD982B659A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F13AC95-2BDC-4CA5-BBD2-3055D87003DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F13AC95-2BDC-4CA5-BBD2-3055D87003DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F13AC95-2BDC-4CA5-BBD2-3055D87003DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F13AC95-2BDC-4CA5-BBD2-3055D87003DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
