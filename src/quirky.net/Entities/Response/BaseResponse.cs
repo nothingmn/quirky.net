@@ -19,7 +19,7 @@ namespace quirky.net.Entities.Response
         public DateTime StartTimeStamp { get; set; }
         public DateTime EndTimeStamp { get; set; }
         public TimeSpan ReadTimeSpan { get; set; }
-        public int StatusCode { get; set; }
+        public StatusCode StatusCode { get; set; }
         public string Message { get; set; }
         public bool Success { get; set; }
         public Dictionary<string, IEnumerable<string>> Headers { get; protected set; }

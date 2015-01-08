@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using quirky.net.Entities.Response;
 
 namespace quirky.net.Entities.Domain
 {
-    public class Device
+    public class Device : BaseResponse
     {
         public string Name { get; set; }
         public string Locale { get; set; }
@@ -21,6 +22,7 @@ namespace quirky.net.Entities.Domain
         public string Device_Manufacturer { get; set; }
         public float[] Lat_Lng { get; set; }
         public string Location { get; set; }
+        public DeviceState Desired_State { get; set; }
+        public DeviceReading Last_Reading { get; set; }
     }
-
 }

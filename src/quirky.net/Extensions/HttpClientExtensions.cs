@@ -7,18 +7,56 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using quirky.net.Converters;
 using quirky.net.Entities.Response;
 
 namespace quirky.net.Extensions
 {
     public static class HttpClientExtensions
     {
+        public static JsonConverter[] Converters = {
+            
+        };
+
+
+        /// <summary>
+        /// Deserialize the raw array results, and populate a parent object
+        /// Also populate parent object with original http request data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="P"></typeparam>
+        /// <param name="client"></param>
+        /// <param name="uri"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public static async Task<T> GetAsTypeAsync<T, P>(this HttpClient client, string uri, string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName)) throw new ArgumentNullException("propertyName");
+            var data = await client.GetAsync(uri);
+            //var result = Activator.CreateInstance<T>();
+            var r = await ConvertToType<T>(DateTime.UtcNow, data);
+            var p = r.GetType().GetTypeInfo().GetDeclaredProperty(propertyName);
+            if (p != null)
+            {
+                var p1 = p.SetMethod;
+                if (p1 != null)
+                {
+                    var lst = await ConvertToType<P>(DateTime.UtcNow, data);
+                    if (lst != null)
+                    {
+                        p1.Invoke(r, new object[] {lst});
+                        return r;
+                    }
+                }
+            }
+            return r;
+        }
 
         public static async Task<T> GetAsTypeAsync<T>(this HttpClient client, string uri)
         {
             return await ConvertToType<T>(DateTime.UtcNow, await client.GetAsync(uri));
         }
-
 
         public static async Task<T> PostAsTypeAsync<T>(this HttpClient client, string uri, string data, string contentType)
         {
@@ -39,7 +77,7 @@ namespace quirky.net.Extensions
         {
             try
             {
-                return JsonConvert.DeserializeObject<T>(value);
+                return JsonConvert.DeserializeObject<T>(value, Converters);
             }
             catch (Exception)
             {
@@ -64,7 +102,8 @@ namespace quirky.net.Extensions
             if (baseResult != null)
             {
                 baseResult.Message = resultContent;
-                baseResult.StatusCode = (int)message.StatusCode;
+
+                baseResult.StatusCode = (StatusCode)message.StatusCode;
                 baseResult.Success = message.IsSuccessStatusCode;
                 baseResult.StartTimeStamp = started;
                 baseResult.EndTimeStamp = DateTime.UtcNow;

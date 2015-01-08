@@ -76,10 +76,30 @@ namespace quirky.net
 
 
         public async Task<ListDevicesResponse> ListDevices()
-        {            
-            return await client.GetAsListOfTypeAsync<List<Device>, ListDevicesResponse>(FormatUrl("/users/me/wink_devices"), "Devices");
+        {
+            return await client.GetAsTypeAsync<ListDevicesResponse, List<Device>>(FormatUrl("/users/me/wink_devices"), "Devices");
         }
 
+        public async Task<Device> UpdateDevice(Device device)
+        {
+            return
+                await
+                    client.PutAsTypeAsync<Device>(
+                        FormatUrl(string.Format("/{0}/{1}", device.Radio_Type, device.Local_Id)),
+                        Newtonsoft.Json.JsonConvert.SerializeObject(device), ContentType);
+        }
+        public async Task<Device> RefreshDevice(Device device)
+        {
+            return
+                await
+                    client.PutAsTypeAsync<Device>(
+                        FormatUrl(string.Format("/{0}/{1}/refresh", device.Radio_Type, device.Local_Id)),
+                        Newtonsoft.Json.JsonConvert.SerializeObject(device), ContentType);
+        }
+        public async Task<BaseResponse> GetUser()
+        {
+            return await client.GetAsTypeAsync<BaseResponse>(FormatUrl("/users/me"));
+        }
 
         private LoginResponse SetHeader(LoginResponse response)
         {
